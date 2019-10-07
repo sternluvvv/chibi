@@ -16,7 +16,7 @@ class Counter(object):
         print(self.cnt)
 
     def __repr__(self) :   #文字列を返すと表示される
-        retern str(self.cnt)
+        return str(self.cnt)
 
 c = Counter()
 c.show()
