@@ -1,7 +1,12 @@
 class Q(object):
-     def __init__(self, a, b): #selfは自分自身
+     def __init__(self, a, b=1): #selfは自分自身 初期値
          self.a = a
          self.b = b
     
-q = Q(1,2)
+     def __repr__(self):
+         if self.b == 1:
+             return str(self.a)
+         return f'{self.a}/{self.b}'
+
+q = Q(3)
 print(q)
