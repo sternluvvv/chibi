@@ -2,9 +2,9 @@ class Expr(object):
     pass
 
 class Val(Expr):
-    __slots__ = ['left','rigth']
-    def __init__(self, a,b):
-        self.value = Value
+    __slots__ = ['value']
+    def __init__(self, value = 0):
+        self.value = value
     def __reper__(self) :
         return f'Val({self.value})'
     def eval(self):
@@ -15,13 +15,8 @@ assert v.eval() == 1
 
 assert isinstance(v, Expr)
 assert isinstance(v, Val)
-assert isinstance(v, int)
+assert not isinstance(v, int)
 
-
-e = Add(Val(1),Val(2))
-assert e.eval() == 3
-e = Add(Val(1),Add(Val(2),Val(3)))
-assert e.eval() == 6
 
 class Add(Expr):
     __slots__ = ['left','right']
@@ -31,7 +26,16 @@ class Add(Expr):
     def eval(self):
         return self.left.eval() + self.right.eval()
 
+
 e = Add(Val(1),Val(2))
+assert e.eval() == 3
+e = Add(Val(1),Add(Val(2),Val(3)))
+assert e.eval() == 6
+
+e = Add(Val(1),Val(2))
+assert e.eval() == 3
+
+e = Add(1,2)
 assert e.eval() == 3
 
 e = Add(Val(1),Add(Val(2),Val(3)))
