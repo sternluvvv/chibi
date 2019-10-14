@@ -1,6 +1,8 @@
 class Expr(object):
     pass
 
+
+
 class Val(Expr):
     __slots__ = ['value']
     def __init__(self, value = 0):
@@ -30,6 +32,16 @@ class Add(Expr):
         self.right = toExpr(b)
     def eval(self):
         return self.left.eval() + self.right.eval()
+
+class BInarry(Expr):
+    __slots__ = ['left','right']
+    def __init__(self,c,d):
+        self.left = toExpr(c)
+        self.right = toExpr(d)
+    def eval(self):
+        return 
+
+        
 
 
 e = Add(Val(1),Val(2))
