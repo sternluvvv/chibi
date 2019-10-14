@@ -17,12 +17,17 @@ assert isinstance(v, Expr)
 assert isinstance(v, Val)
 assert not isinstance(v, int)
 
+def toExpr(a):
+    if not isinstance(a,Expr):
+            a = Val(a)
+    return a
+
 
 class Add(Expr):
     __slots__ = ['left','right']
     def __init__(self,a,b):
-        self.left = a
-        self.right = b
+        self.left = toExpr(a)
+        self.right = toExpr(b)
     def eval(self):
         return self.left.eval() + self.right.eval()
 
