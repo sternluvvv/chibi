@@ -20,6 +20,10 @@ def toExpr(a):
     return a
 
 class Binary(Expr):
+    __slots__=['left','right']
+    def __init__(self,a,b):
+        self.left = toExpr(a)
+        self.right = toExpr(b)
     def __repr__(self):
         cname = self.__class__.__name__
         return f'{cname}({self.left},{self.right})'
@@ -62,4 +66,6 @@ class Div(Binary):
         self.right = toExpr(b)
     def eval(self):
         return self.left.eval() // self.right.eval()
+
+
 
