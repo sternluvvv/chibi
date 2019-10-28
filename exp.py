@@ -1,62 +1,65 @@
 class Expr(object):
     pass
 
-
-
 class Val(Expr):
     __slots__ = ['value']
     def __init__(self, value = 0):
         self.value = value
-    def __reper__(self) :
+    def __repr__(self):
         return f'Val({self.value})'
     def eval(self):
         return self.value
+
 v = Val(1)
-print(v)
+#print(v)
 assert v.eval() == 1
 
-assert isinstance(v, Expr)
-assert isinstance(v, Val)
-assert not isinstance(v, int)
-
 def toExpr(a):
-    if not isinstance(a,Expr):
+    if not isinstance(a, Expr):
             a = Val(a)
     return a
 
+class Binary(Expr):
+    def __repr__(self):
+        cname = self.__class__.__name__
+        return f'{cname}({self.left},{self.right})'
 
-class Add(Expr):
-    __slots__ = ['left','right']
-    def __init__(self,a,b):
-        self.left = toExpr(a)
+class Add(Binary):
+    __slots__=['left', 'right']
+    def __init__(self, a, b):
+        self.left = toExpr(a)   # aとb は式
         self.right = toExpr(b)
     def eval(self):
         return self.left.eval() + self.right.eval()
 
-class BInarry(Expr):
-    __slots__ = ['left','right']
-    def __init__(self,c,d):
-        self.left = toExpr(c)
-        self.right = toExpr(d)
+e = Add(1,Add(1,2))
+#print(e)
+assert e.eval() == 4
+
+e = Add(Val(1),Add(Val(2),Val(3)))
+assert e.eval() == 6
+
+class Sub(Binary):
+    __slots__=['left', 'right']
+    def __init__(self, a, b):
+        self.left = toExpr(a)   # aとb は式
+        self.right = toExpr(b)
     def eval(self):
-        return 
+        return self.left.eval() - self.right.eval()
 
-        
+class Mul(Binary):
+    __slots__=['left', 'right']
+    def __init__(self, a, b):
+        self.left = toExpr(a)   # aとb は式
+        self.right = toExpr(b)
+    def eval(self):
+        return self.left.eval() * self.right.eval()
 
+class Div(Binary):
+    __slots__=['left', 'right']
+    def __init__(self, a, b):
+        self.left = toExpr(a)   # aとb は式
+        self.right = toExpr(b)
+    def eval(self):
+        return self.left.eval() // self.right.eval()
 
-e = Add(Val(1),Val(2))
-assert e.eval() == 3
-e = Add(Val(1),Add(Val(2),Val(3)))
-assert e.eval() == 6
-
-e = Add(Val(1),Val(2))
-assert e.eval() == 3
-
-e = Add(1,2)
-assert e.eval() == 3
-
-e = Add(Val(1),Add(Val(2),Val(3)))
-assert e.eval() == 6
-
-print()
-print()
